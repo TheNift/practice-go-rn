@@ -1,0 +1,7 @@
+{
+  "license": "MIT",
+  "dependencies": {
+    "expo": "^47.0.11",
+    "expo-cli": "^6.0.8"
+  }
+}
