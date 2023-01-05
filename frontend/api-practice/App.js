@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // function to store userID value globally across app
 const storeUserID = async (value) => {
@@ -60,17 +61,18 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <View className="App">
+      <SafeAreaView  style={styles.container}>
+        <StatusBar style="auto" />
         <Text>Loading...</Text>
-      </View>
+      </SafeAreaView >
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text>ID: {user.id} </Text>
+    <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-    </View>
+      <Text>ID: {user.id} </Text>
+    </SafeAreaView>
   );
 }
 
