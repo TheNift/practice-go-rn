@@ -22,7 +22,7 @@ func getUserFromDatabase(id int) (*User, error) {
 		ID:        id,
 		FirstName: "John",
 		LastName:  "Doe",
-		Email:     "john.doe@example.com",
+		Email:     (strconv.Itoa(id) + "@example.com"),
 	}, nil
 }
 
