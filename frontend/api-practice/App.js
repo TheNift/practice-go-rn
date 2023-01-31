@@ -18,9 +18,14 @@ const storeUserID = async (value) => {
 function requestUser(userID) {
   return new Promise(resolve => {
     setTimeout(() => {
-      const response = fetch(`http://localhost:8080/api/users?id=${userID}`);
-      resolve(response);
-    }, 2000);
+      // this fetch needs to be the IP of the server host: for my personal test rig that's my device IP
+      resolve(fetch(`http://192.168.0.48:8080/api/users?id=${userID}`)
+        .then(response => response.json())  
+        .catch(error => {
+          console.error(error);
+        })
+      );
+    }, 0); //adjust this time to wait before making request (for debugging)
   });
 }
 
@@ -30,9 +35,7 @@ async function getUser() {
 	const userID = await AsyncStorage.getItem('userID');
   console.log("Retrieved userID...");
   console.log("Sending API request...");
-	// const response = await fetch(`http://localhost:8080/api/users?id=${userID}`);
-  const response = await requestUser(userID);
-	const user = await response.json();
+  const user = await requestUser(userID);
   console.log("Response recieved: ", user);
   console.log("Retrieved API response...");
 	return user;
@@ -61,7 +64,7 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <SafeAreaView  style={styles.container}>
+      <SafeAreaView  style={styles.containerLoading}>
         <StatusBar style="auto" />
         <Text>Loading...</Text>
       </SafeAreaView >
@@ -69,18 +72,29 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.containerLoaded}>
       <StatusBar style="auto" />
       <Text>ID: {user.id} </Text>
+      <Text>First Name: {user.first_name} </Text>
+      <Text>Last Name: {user.last_name} </Text>
+      <Text>Email: {user.email} </Text>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerLoading: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#D62828',
     alignItems: 'center',
     justifyContent: 'center',
+    color: '#fff',
+  },
+  containerLoaded: {
+    flex: 1,
+    backgroundColor: '#A3B18A',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#000',
   },
 });

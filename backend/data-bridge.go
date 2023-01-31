@@ -30,6 +30,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Recieved Request!!")
 	fmt.Println("Retrieving userID from request...")
 	userIDStr := r.URL.Query().Get("id")
+	fmt.Println("User ID: ", userIDStr)
 	fmt.Println("Converting userID to int...")
 	userID, err := strconv.Atoi(userIDStr)
 	if err != nil {
@@ -59,6 +60,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("Backend Process Initiated...")
 	http.HandleFunc("/api/users", getUser)
 	http.ListenAndServe(":8080", nil)
 }
