@@ -19,7 +19,7 @@ function requestUser(userID) {
   return new Promise(resolve => {
     setTimeout(() => {
       // this fetch needs to be the IP of the server host: for my personal test rig that's my device IP
-      resolve(fetch(`http://192.168.0.48:8080/api/users?id=${userID}`)
+      resolve(fetch(`http://10.104.43.110:8080/api/users?id=${userID}`)
         .then(response => response.json())  
         .catch(error => {
           console.error(error);
@@ -47,7 +47,7 @@ export default function App() {
   const [isLoading, setLoading] = useState(true);
 
   const prepUserData = () => {
-    storeUserID('837645918231');
+    storeUserID('1');
     console.log("Starting getUser Process...");
     console.log("===========================");
     getUser().then(response => {
